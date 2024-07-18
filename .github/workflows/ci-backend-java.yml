@@ -67,7 +67,7 @@ jobs:
     - name: Update Kustomize Deployment with New Tag
       run: |
         TAG="${{ github.event.inputs.name }}-${{ env.DATE_TAG }}"
-        sed -i "s|image: .*$|image: $TAG|g" edu3-gitops-dev/backend-java/helm/values.yaml
+        sed -i "s|image: .*$|image: $TAG|" edu3-gitops-dev/backend-java/helm/values.yaml
 
     - name: Commit and push changes
       run: |
