@@ -1,1 +1,5 @@
+backend-java:
+  replicas: 2
 
+frontend-vue:
+  replicas: 2
