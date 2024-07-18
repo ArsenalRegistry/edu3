@@ -1,4 +1,4 @@
-name: Publish Frontend-Vue Docker Azure image
+name: CI Frontend Vue
 
 on:      
   workflow_dispatch:
