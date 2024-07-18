@@ -22,7 +22,7 @@
 global:
   istio:
     enabled: false
-  namespace: demo1
+  namespace: edu3
 
 ##=(Application 기본 작성 영역)============================================================###
 ## Application 기본 정보 작성 영역 
