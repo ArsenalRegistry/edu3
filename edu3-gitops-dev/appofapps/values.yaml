@@ -3,7 +3,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: default
   source:
-    repoURL: https://github.com/ArsenalRegistry/helm-charts
+    repoURL: https://github.com/ArsenalRegistry/edu3
   syncPolicy:
     automated:
       prune: true
