@@ -13,8 +13,9 @@ spec:
   source:
     helm:
       valueFiles:
-      - values.yaml
-    path: frontend-vue
+      - helm/values.yaml
+      - ../dev-values.yaml
+    path: edu3-gitops-dev/frontend-vue
     repoURL: https://github.com/ArsenalRegistry/edu3
     targetRevision: HEAD
   syncPolicy:
