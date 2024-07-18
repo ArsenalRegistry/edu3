@@ -15,7 +15,7 @@ spec:
       valueFiles:
       - values.yaml
     path: backend-java
-    repoURL: https://github.com/ArsenalRegistry/helm-charts
+    repoURL: https://github.com/ArsenalRegistry/edu3
     targetRevision: HEAD
   syncPolicy:
     {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
