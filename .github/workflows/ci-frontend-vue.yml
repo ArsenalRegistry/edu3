@@ -46,8 +46,8 @@ jobs:
       - name: Build and Push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./edu3-gitops-dev/frontend-vue/Dockerfile
-          file: Dockerfile
+          context: .  # 프로젝트 루트를 기준으로 설정
+          file: ./edu3-gitops-dev/frontend-vue/Dockerfile  # Dockerfile의 위치를 정확히 지정 
           push: true
           tags: ${{ secrets.AZURE_URL }}/frontend-vue:${{ github.event.inputs.name }}-${{ env.DATE_TAG }}
 
