@@ -1,0 +1,67 @@
+name: Publish Frontend-Vue Docker Azure image
+
+on:      
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Docker TAG"
+        required: true
+        default: "master"
+
+permissions:
+  contents: write # repo wirte permission update
+    
+jobs:
+  build_and_push_to_registry:
+    name: Build and Push Docker image to Azure ACR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        working-directory: ./frontend-vue
+        run: npm install
+
+      - name: Build Vue.js application
+        working-directory: ./frontend-vue
+        run: npm run build
+
+      - name: Get current date and time
+        id: datetime
+        run: echo "DATE_TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.AZURE_URL }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./edu3-gitops-dev/frontend-vue/Dockerfile
+          file: Dockerfile
+          push: true
+          tags: ${{ secrets.AZURE_URL }}/frontend-vue:${{ github.event.inputs.name }}-${{ env.DATE_TAG }}
+
+      - name: Update Kustomize Deployment with New Tag
+        run: |
+          TAG="${{ secrets.AZURE_URL }}/frontend-vue:${{ github.event.inputs.name }}-${{ env.DATE_TAG }}"
+          sed -i "s|image: .*$|image: $TAG|" ./edu3-gitops-dev/frontend-vue/helm/values.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add ./edu3-gitops-dev/frontend-vue/helm/values.yaml
+          git commit -m "Update frontend-vue image to $TAG"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
