@@ -63,14 +63,14 @@ services:
 ##
 ## 기존의 작성 형태를 그대로 사용 가능 함.
 ## image 의tag부분은 ${version} 으로 마킹하여 helm 배포시 지정된 version 으로 replace한다.
-## ex) image: docker-registry.default.svc.cluster.local:5000/millet/userlist:${version}
+## ex) image: eduregistry.azurecr.io/frontend-vue:master-20240718081311
 ## ----------                 -----------------------------------                ---------- ##
 ## ----------                 -----------------------------------                ---------- ##
 replicas: 1
 deployments:
   - spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/appdu-demo3/frontend-vue:${version}
+      - image: eduregistry.azurecr.io/frontend-vue:master-20240718081311
         imagePullPolicy: Always
         name: frontend-vue
         ports:
@@ -143,7 +143,7 @@ deployments:
 ##
 ## 기존의 작성 형태를 그대로 사용 가능 함.
 ## image 의tag부분은 ${version} 으로 마킹하여 helm 배포시 지정된 version 으로 replace한다.
-## ex) image: docker-registry.default.svc.cluster.local:5000/millet/userlist:${version}
+## ex) image: eduregistry.azurecr.io/frontend-vue:master-20240718081311
 ## ----------                 -----------------------------------                ---------- ##
 ## ----------                 -----------------------------------                ---------- ##
 
@@ -154,7 +154,7 @@ deployments:
 #  - spec:
 #      restartPolicy: Never
 #      containers:
-#      - image: docker-registry.default.svc:5000/appdu-demo39/frontend-vue:${version}
+#      - image: eduregistry.azurecr.io/frontend-vue:master-20240718081311
 #        imagePullPolicy: Always
 #        name: frontend-vue
 #        ports:
