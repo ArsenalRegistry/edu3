@@ -66,7 +66,7 @@ jobs:
 
     - name: Update Kustomize Deployment with New Tag
       run: |
-        TAG="${{ github.event.inputs.name }}-${{ env.DATE_TAG }}"
+        TAG="${{ secrets.AZURE_URL }}/backend-java:${{ github.event.inputs.name }}-${{ env.DATE_TAG }}"
         sed -i "s|image: .*$|image: $TAG|" edu3-gitops-dev/backend-java/helm/values.yaml
 
     - name: Commit and push changes
