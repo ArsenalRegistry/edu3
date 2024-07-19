@@ -14,7 +14,7 @@ spec:
     helm:
       valueFiles:
       - backend-java/helm/values.yaml
-      - dev-values.yaml
+      - ../dev-values.yaml
     path: edu3-gitops-dev
     repoURL: https://github.com/ArsenalRegistry/edu3
     targetRevision: HEAD
